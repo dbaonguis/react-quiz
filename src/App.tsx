@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchQuizQuestions, Difficulty, QuestionWithChoices } from './API';
 // Components
 import QuestionCard from './components/QuestionCard';
 
+type UserAnswer = {
+  questionNumber: number;
+  question: string;
+  correctAnswer: string;
+  answer: string;
+  isCorrect: boolean;
+};
+
 const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<QuestionWithChoices[]>([]);
   const [questionNumber, setQuestionNumber] = useState(0);
-  const [userAnswers, setUserAnswers] = useState([]);
+  const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
 
   const TOTAL_QUESTIONS = 10;
+
+  useEffect(() => {
+    console.log(fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY));
+  }, []);
 
   const startTrivia = async () => {
     console.log('start');

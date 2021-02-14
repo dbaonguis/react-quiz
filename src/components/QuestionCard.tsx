@@ -1,13 +1,13 @@
 import React from 'react';
 
-interface Props {
+type Props = {
   question: string;
   choices: string[];
   callback: (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   userAnswer: any;
   questionNumber: number;
   totalQuestions: number;
-}
+};
 
 const QuestionCard: React.FC<Props> = ({ question, choices, callback, userAnswer, questionNumber, totalQuestions }: Props) => (
   <div>
