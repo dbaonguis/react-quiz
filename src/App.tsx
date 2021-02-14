@@ -12,21 +12,26 @@ type UserAnswer = {
 };
 
 const App: React.FC = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [questions, setQuestions] = useState<QuestionWithChoices[]>([]);
   const [questionNumber, setQuestionNumber] = useState(0);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
   const [score, setScore] = useState(0);
-  const [gameOver, setGameOver] = useState(true);
+  const [gameOver, setGameOver] = useState<boolean>(false);
 
   const TOTAL_QUESTIONS = 10;
 
-  useEffect(() => {
-    console.log(fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY));
-  }, []);
+  const startQuiz = async () => {
+    setLoading(true);
+    setGameOver(false);
 
-  const startTrivia = async () => {
-    console.log('start');
+    const newQuestions = await fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY);
+
+    setQuestions(newQuestions);
+    setScore(0);
+    setUserAnswers([]);
+    setQuestionNumber(0);
+    setLoading(false);
   };
 
   const checkAnswer = (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -40,7 +45,7 @@ const App: React.FC = () => {
   return (
     <div className='App'>
       <h1>REACT QUIZ</h1>
-      <button className='start' onClick={startTrivia}>
+      <button className='start' onClick={startQuiz}>
         Start
       </button>
       <p className='score'>Score:</p>
