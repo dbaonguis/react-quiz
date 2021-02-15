@@ -2,8 +2,8 @@
   "editor.rulers": [140],
   "files.exclude": {
     "**/.git": true,
-    "**/node_modules": true,
-    "**/build": true,
+    "**/node_modules": false,
+    "**/build": false,
     "**/coverage": true
   },
   "editor.formatOnSave": true, // auto format the file on each save
